@@ -2,6 +2,7 @@ package com.pinhobrunodev.animesforum.dto.user;
 
 
 import com.pinhobrunodev.animesforum.dto.role.RoleDTO;
+import com.pinhobrunodev.animesforum.entities.User;
 
 
 public class UserDTO {
@@ -13,6 +14,14 @@ public class UserDTO {
     private String email;
 
     public UserDTO() {
+    }
+
+    public UserDTO(User entity) {
+    id = entity.getId();
+    firstName = entity.getFirstName();
+    lastName = entity.getLastName();
+    nickname = entity.getNickname();
+    email = entity.getEmail();
     }
 
     public UserDTO(Long id, String firstName, String lastName, String nickname, String email) {
