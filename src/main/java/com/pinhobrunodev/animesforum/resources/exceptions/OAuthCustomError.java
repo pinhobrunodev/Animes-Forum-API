@@ -1,6 +1,6 @@
 package com.pinhobrunodev.animesforum.resources.exceptions;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OAuthCustomError {
     private String error;
