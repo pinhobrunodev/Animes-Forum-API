@@ -15,6 +15,7 @@ public class User implements Serializable{
     private Long id;
     private String firstName;
     private String lastName;
+    private String nickname;
     private String email;
     private String password;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -33,9 +34,10 @@ public class User implements Serializable{
 
     }
 
-    public User(Long id, String firstName, String lastName, String email, String password, Instant createdAt, Instant updatedAt) {
+    public User(Long id, String firstName, String nickname,String lastName, String email, String password, Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.firstName = firstName;
+        this.nickname = nickname;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
@@ -65,6 +67,14 @@ public class User implements Serializable{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getEmail() {
