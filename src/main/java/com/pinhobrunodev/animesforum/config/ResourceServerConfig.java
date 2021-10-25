@@ -32,6 +32,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,USER_ENDPOINT).permitAll()
                 .antMatchers(HttpMethod.PUT,USER_ENDPOINT).authenticated()
                 .antMatchers(HttpMethod.GET,USER_ENDPOINT).authenticated()
+                .antMatchers(HttpMethod.DELETE,USER_ENDPOINT).hasAnyRole("ADMIN","BASIC")
                 .anyRequest().authenticated();
     }
 
