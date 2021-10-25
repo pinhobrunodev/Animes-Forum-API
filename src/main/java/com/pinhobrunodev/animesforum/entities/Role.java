@@ -49,14 +49,4 @@ public class Role implements Serializable {
     public Instant getUpdatedAt() {
         return updatedAt;
     }
-
-    @PrePersist
-    public void PrePersist() {
-        createdAt = Instant.now();
-    }
-
-    @PreUpdate
-    public void PreUpdate() {
-        updatedAt = Instant.now();
-    }
 }
