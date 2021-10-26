@@ -3,6 +3,8 @@ package com.pinhobrunodev.animesforum.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_gender")
@@ -16,6 +18,10 @@ public class Gender implements Serializable {
     private Instant createdAt;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant updatedAt;
+
+
+    @ManyToMany(mappedBy = "genders")
+    private Set<Anime> animes = new HashSet<>();
 
     public Gender() {
     }
@@ -59,5 +65,9 @@ public class Gender implements Serializable {
     @PreUpdate
     public void PreUpdate() {
         updatedAt = Instant.now();
+    }
+
+    public Set<Anime> getAnimes() {
+        return animes;
     }
 }
