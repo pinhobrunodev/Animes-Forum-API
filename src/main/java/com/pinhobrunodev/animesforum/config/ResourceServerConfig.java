@@ -10,8 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 
 import java.util.Arrays;
 
-import static com.pinhobrunodev.animesforum.auxiliary.EndpointsConfigurer.PUBLIC;
-import static com.pinhobrunodev.animesforum.auxiliary.EndpointsConfigurer.USER_ENDPOINT;
+import static com.pinhobrunodev.animesforum.auxiliary.EndpointsConfigurer.*;
 
 @Configuration
 @EnableResourceServer
@@ -32,6 +31,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,USER_ENDPOINT).permitAll()
                 .antMatchers(HttpMethod.PUT,USER_ENDPOINT).authenticated()
                 .antMatchers(HttpMethod.GET,USER_ENDPOINT).authenticated()
+                .antMatchers(GENDER_ENDPOINT).hasAnyRole("ADMIN")
                 .anyRequest().authenticated();
     }
 

@@ -5,6 +5,7 @@ import com.pinhobrunodev.animesforum.dto.user.UserInsertDTO;
 import com.pinhobrunodev.animesforum.dto.user.UserPagedDTO;
 import com.pinhobrunodev.animesforum.dto.user.UserUpdateDTO;
 import com.pinhobrunodev.animesforum.entities.User;
+import com.pinhobrunodev.animesforum.mapper.user.UserMapper;
 import com.pinhobrunodev.animesforum.repositories.RoleRepository;
 import com.pinhobrunodev.animesforum.repositories.UserRepository;
 import com.pinhobrunodev.animesforum.services.exceptions.DatabaseException;
@@ -31,13 +32,11 @@ import javax.persistence.EntityNotFoundException;
 public class UserService implements UserDetailsService {
 
     @Autowired
-    private UserRepository repository;
-    @Autowired
     private AuthService service;
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private UserRepository repository;
     @Autowired
-    private RoleRepository roleRepository;
+    private UserMapper mapper;
 
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -47,7 +46,7 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void save(UserInsertDTO dto) {
         User entity = new User();
-        repository.save(copyDtoToEntity(entity, dto));
+        repository.save(mapper.copyDtoToEntity(entity, dto));
     }
 
     /**
@@ -56,7 +55,7 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void update(Long userId, UserUpdateDTO dto) {
         try {
-            User user = updateAux(userId, dto);
+            User user = mapper.updateAux(userId, dto);
             repository.save(user);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Entity not found");
@@ -112,26 +111,6 @@ public class UserService implements UserDetailsService {
 
 
     // Auxiliary methods
-
-    public User copyDtoToEntity(User entity, UserInsertDTO dto) {
-        entity.setFirstName(dto.getFirstName());
-        entity.setLastName(dto.getLastName());
-        entity.setNickname(dto.getNickname());
-        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
-        entity.setEmail(dto.getEmail());
-        entity.getRoles().clear();
-        entity.getRoles().add((roleRepository.getOne(3L)));
-        return entity;
-    }
-
-    private User updateAux(Long userId, UserUpdateDTO dto) {
-        service.validateSelfOrAdmin(userId);
-        User entity = repository.getOne(userId);
-        entity.setFirstName(dto.getFirstName());
-        entity.setLastName(dto.getLastName());
-        entity.setNickname(dto.getNickname());
-        return entity;
-    }
 
 
     @Override
