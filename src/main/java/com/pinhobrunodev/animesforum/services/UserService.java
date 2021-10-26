@@ -5,6 +5,7 @@ import com.pinhobrunodev.animesforum.dto.user.UserInsertDTO;
 import com.pinhobrunodev.animesforum.dto.user.UserPagedDTO;
 import com.pinhobrunodev.animesforum.dto.user.UserUpdateDTO;
 import com.pinhobrunodev.animesforum.entities.User;
+import com.pinhobrunodev.animesforum.repositories.RoleRepository;
 import com.pinhobrunodev.animesforum.repositories.UserRepository;
 import com.pinhobrunodev.animesforum.services.exceptions.DatabaseException;
 import com.pinhobrunodev.animesforum.services.exceptions.ResourceNotFoundException;
@@ -35,6 +36,8 @@ public class UserService implements UserDetailsService {
     private AuthService service;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private RoleRepository roleRepository;
 
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -49,16 +52,14 @@ public class UserService implements UserDetailsService {
 
     /**
      * @apiNote Update User
-     *
-     *
      */
     @Transactional
-    public void update(Long userId,UserUpdateDTO dto){
+    public void update(Long userId, UserUpdateDTO dto) {
         try {
-            User user = updateAux(userId,dto);
+            User user = updateAux(userId, dto);
             repository.save(user);
-        }catch (EntityNotFoundException e){
-            throw  new ResourceNotFoundException("Entity not found");
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Entity not found");
         }
     }
 
@@ -112,15 +113,18 @@ public class UserService implements UserDetailsService {
 
     // Auxiliary methods
 
-    private User copyDtoToEntity(User entity, UserInsertDTO dto) {
+    public User copyDtoToEntity(User entity, UserInsertDTO dto) {
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setNickname(dto.getNickname());
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+        entity.setEmail(dto.getEmail());
+        entity.getRoles().clear();
+        entity.getRoles().add((roleRepository.getOne(3L)));
         return entity;
     }
 
-    private User updateAux (Long userId, UserUpdateDTO dto){
+    private User updateAux(Long userId, UserUpdateDTO dto) {
         service.validateSelfOrAdmin(userId);
         User entity = repository.getOne(userId);
         entity.setFirstName(dto.getFirstName());
