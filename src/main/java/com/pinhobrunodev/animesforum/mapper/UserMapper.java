@@ -1,4 +1,4 @@
-package com.pinhobrunodev.animesforum.mapper.user;
+package com.pinhobrunodev.animesforum.mapper;
 
 import com.pinhobrunodev.animesforum.dto.user.UserInsertDTO;
 import com.pinhobrunodev.animesforum.dto.user.UserUpdateDTO;

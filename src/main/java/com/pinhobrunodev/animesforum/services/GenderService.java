@@ -2,7 +2,7 @@ package com.pinhobrunodev.animesforum.services;
 
 import com.pinhobrunodev.animesforum.dto.gender.GenderDTO;
 import com.pinhobrunodev.animesforum.entities.Gender;
-import com.pinhobrunodev.animesforum.mapper.gender.GenderMapper;
+import com.pinhobrunodev.animesforum.mapper.GenderMapper;
 import com.pinhobrunodev.animesforum.repositories.GenderRepository;
 import com.pinhobrunodev.animesforum.services.exceptions.DatabaseException;
 import com.pinhobrunodev.animesforum.services.exceptions.ResourceNotFoundException;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

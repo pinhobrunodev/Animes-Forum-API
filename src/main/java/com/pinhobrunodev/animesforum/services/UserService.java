@@ -5,8 +5,7 @@ import com.pinhobrunodev.animesforum.dto.user.UserInsertDTO;
 import com.pinhobrunodev.animesforum.dto.user.UserPagedDTO;
 import com.pinhobrunodev.animesforum.dto.user.UserUpdateDTO;
 import com.pinhobrunodev.animesforum.entities.User;
-import com.pinhobrunodev.animesforum.mapper.user.UserMapper;
-import com.pinhobrunodev.animesforum.repositories.RoleRepository;
+import com.pinhobrunodev.animesforum.mapper.UserMapper;
 import com.pinhobrunodev.animesforum.repositories.UserRepository;
 import com.pinhobrunodev.animesforum.services.exceptions.DatabaseException;
 import com.pinhobrunodev.animesforum.services.exceptions.ResourceNotFoundException;
@@ -21,7 +20,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

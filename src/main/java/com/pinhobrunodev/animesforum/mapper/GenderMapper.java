@@ -1,4 +1,4 @@
-package com.pinhobrunodev.animesforum.mapper.gender;
+package com.pinhobrunodev.animesforum.mapper;
 
 import com.pinhobrunodev.animesforum.dto.gender.GenderDTO;
 import com.pinhobrunodev.animesforum.entities.Gender;
