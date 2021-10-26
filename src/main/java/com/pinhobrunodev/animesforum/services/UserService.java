@@ -29,8 +29,6 @@ import javax.persistence.EntityNotFoundException;
 @Service
 public class UserService implements UserDetailsService {
 
-
-
     @Autowired
     private UserRepository repository;
     @Autowired
@@ -90,7 +88,7 @@ public class UserService implements UserDetailsService {
 
     public void delete(Long userId) {
         try {
-            service.validateSelfOrOther(userId);
+            service.validateSelfOrAdmin(userId);
             repository.deleteById(userId);
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Database violation");
@@ -117,14 +115,13 @@ public class UserService implements UserDetailsService {
     private User copyDtoToEntity(User entity, UserInsertDTO dto) {
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
-        entity.setEmail(dto.getEmail());
         entity.setNickname(dto.getNickname());
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         return entity;
     }
 
     private User updateAux (Long userId, UserUpdateDTO dto){
-        service.validateSelfOrOther(userId);
+        service.validateSelfOrAdmin(userId);
         User entity = repository.getOne(userId);
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());

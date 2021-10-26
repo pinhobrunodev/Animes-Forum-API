@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.ServletException;
 import java.net.URI;
 
 @RestController
@@ -33,7 +34,7 @@ public class UserResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id,  @RequestBody UserUpdateDTO dto) {
+    public ResponseEntity<Void> update(@PathVariable Long id,  @RequestBody UserUpdateDTO dto){
         service.update(id,dto);
         return ResponseEntity.ok().build();
     }

@@ -1,8 +1,7 @@
 package com.pinhobrunodev.animesforum.dto.user;
 
-import com.pinhobrunodev.animesforum.entities.User;
 
-public class UserUpdateDTO {
+public class UserUpdateDTO{
     private String firstName;
     private String lastName;
     private String nickname;
