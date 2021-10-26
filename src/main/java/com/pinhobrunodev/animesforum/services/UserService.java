@@ -15,9 +15,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,8 +23,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import javax.persistence.EntityNotFoundException;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -53,14 +51,14 @@ public class UserService implements UserDetailsService {
 
     /**
      * @apiNote Update User
-     *TODO: APÓS REALIZAR O PUT OCORRE A TROCA O DO EMAIL NO BANCO,
-     * PORÉM O CONTINUA O MESMO VALOR NO TOKEN JWT ( EMAIL ANTIGO )
+     *
+     *
      */
     @Transactional
     public void update(Long userId,UserUpdateDTO dto){
         try {
-            User entity = updateAux(userId,dto);
-            repository.save(entity);
+            User user = updateAux(userId,dto);
+            repository.save(user);
         }catch (EntityNotFoundException e){
             throw  new ResourceNotFoundException("Entity not found");
         }
@@ -126,12 +124,11 @@ public class UserService implements UserDetailsService {
     }
 
     private User updateAux (Long userId, UserUpdateDTO dto){
+        service.validateSelfOrOther(userId);
         User entity = repository.getOne(userId);
-        service.validateSelfOrOther(entity.getId());
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setNickname(dto.getNickname());
-        entity.setEmail(dto.getEmail());
         return entity;
     }
 
