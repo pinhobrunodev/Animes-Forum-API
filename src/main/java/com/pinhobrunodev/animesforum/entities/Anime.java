@@ -4,7 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,9 +30,12 @@ public class Anime implements Serializable {
 
     @ManyToMany()
     @JoinTable(name = "tb_anime_gender"
-    ,joinColumns = @JoinColumn(name = "anime_id")
-    ,inverseJoinColumns = @JoinColumn(name = "gender_id"))
+            , joinColumns = @JoinColumn(name = "anime_id")
+            , inverseJoinColumns = @JoinColumn(name = "gender_id"))
     private Set<Gender> genders = new HashSet<>();
+
+    @OneToMany(mappedBy = "anime")
+    private List<Topic> topics = new ArrayList<>();
 
 
     public Anime() {
@@ -86,6 +91,13 @@ public class Anime implements Serializable {
         this.releaseDate = releaseDate;
     }
 
+    public Set<Gender> getGenders() {
+        return genders;
+    }
+
+    public List<Topic> getTopics() {
+        return topics;
+    }
 
     public Instant getCreatedAt() {
         return createdAt;
@@ -105,7 +117,5 @@ public class Anime implements Serializable {
         updatedAt = Instant.now();
     }
 
-    public Set<Gender> getGenders() {
-        return genders;
-    }
+
 }
