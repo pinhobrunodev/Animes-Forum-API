@@ -10,7 +10,6 @@ import com.pinhobrunodev.animesforum.repositories.TopicRepository;
 import com.pinhobrunodev.animesforum.repositories.UserRepository;
 import com.pinhobrunodev.animesforum.services.AuthService;
 import com.pinhobrunodev.animesforum.services.exceptions.ForbiddenException;
-import com.pinhobrunodev.animesforum.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

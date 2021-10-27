@@ -1,5 +1,6 @@
 package com.pinhobrunodev.animesforum.services;
 
+import com.pinhobrunodev.animesforum.entities.Topic;
 import com.pinhobrunodev.animesforum.entities.User;
 import com.pinhobrunodev.animesforum.repositories.UserRepository;
 import com.pinhobrunodev.animesforum.services.exceptions.ForbiddenException;
@@ -27,11 +28,12 @@ public class AuthService {
         }
     }
 
-    public void validateSelfOrAdmin(Long userId){
+    public void validateSelfOrAdmin(Long userId) {
         User user = authenticated();
-        if(user.getId() != userId && !user.hasRole("ROLE_ADMIN")){
-            throw  new ForbiddenException("Access Denied");
+        if (user.getId() != userId && !user.hasRole("ROLE_ADMIN")) {
+            throw new ForbiddenException("Access Denied");
         }
+
     }
 
 

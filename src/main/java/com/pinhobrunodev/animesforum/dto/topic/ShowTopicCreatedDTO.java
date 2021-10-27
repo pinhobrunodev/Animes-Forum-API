@@ -1,9 +1,12 @@
 package com.pinhobrunodev.animesforum.dto.topic;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pinhobrunodev.animesforum.entities.Topic;
 
 public class ShowTopicCreatedDTO {
 
+    @JsonProperty("topic_id")
+    private Long id;
     private String title;
     private String body;
     private String animeName;
@@ -19,11 +22,20 @@ public class ShowTopicCreatedDTO {
         createdBy = entity.getCreatedBy();
     }
 
-    public ShowTopicCreatedDTO(String title, String body, String animeName, String createdBy) {
+    public ShowTopicCreatedDTO(Long id ,String title, String body, String animeName, String createdBy) {
+        this.id = id;
         this.title = title;
         this.body = body;
         this.animeName = animeName;
         this.createdBy = createdBy;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
