@@ -52,7 +52,7 @@ public class GenderResource {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
-    @GetMapping(value = "/page/{id}")
+    @GetMapping(value = "/{id}/page/animes")
     public ResponseEntity<Page<AnimeDTO>> findAnimePagedByGenderId(
             @PageableDefault(page = 0, size = 10)
             @SortDefault.SortDefaults({
