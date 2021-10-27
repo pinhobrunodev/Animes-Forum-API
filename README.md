@@ -1,3 +1,3 @@
 # Animes-Forum-API
 
-:hammer: Coming soon .... 
+Coming soon .... :hammer:
