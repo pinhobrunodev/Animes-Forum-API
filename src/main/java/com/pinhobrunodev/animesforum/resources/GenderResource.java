@@ -1,8 +1,14 @@
 package com.pinhobrunodev.animesforum.resources;
 
+import com.pinhobrunodev.animesforum.dto.anime.AnimeDTO;
 import com.pinhobrunodev.animesforum.dto.gender.GenderDTO;
 import com.pinhobrunodev.animesforum.services.GenderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,31 +25,40 @@ public class GenderResource {
 
 
     @PostMapping(value = "/save")
-    public ResponseEntity<GenderDTO> save (@RequestBody GenderDTO dto){
+    public ResponseEntity<GenderDTO> save(@RequestBody GenderDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(service.save(dto));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<GenderDTO> update (@PathVariable Long id , @RequestBody GenderDTO dto){
-        return  ResponseEntity.ok().body(service.update(id,dto));
+    public ResponseEntity<GenderDTO> update(@PathVariable Long id, @RequestBody GenderDTO dto) {
+        return ResponseEntity.ok().body(service.update(id, dto));
     }
 
     @DeleteMapping(value = "/{id}")
-    public  ResponseEntity<Void> delete (@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
 
     @GetMapping
-    public ResponseEntity<List<GenderDTO>> findAll(){
-        return  ResponseEntity.ok().body(service.findAll());
+    public ResponseEntity<List<GenderDTO>> findAll() {
+        return ResponseEntity.ok().body(service.findAll());
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<GenderDTO> findById(@PathVariable Long id){
+    public ResponseEntity<GenderDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
+    }
+
+    @GetMapping(value = "/page/{id}")
+    public ResponseEntity<Page<AnimeDTO>> findAnimePagedByGenderId(
+            @PageableDefault(page = 0, size = 10)
+            @SortDefault.SortDefaults({
+            @SortDefault(sort = "title", direction = Sort.Direction.ASC)
+            }) @PathVariable Long id, Pageable pageable) {
+        return ResponseEntity.ok().body(service.findAnimePagedByGenderId(id,pageable));
     }
 
 }

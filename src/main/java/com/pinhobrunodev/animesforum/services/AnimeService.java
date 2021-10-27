@@ -1,9 +1,12 @@
 package com.pinhobrunodev.animesforum.services;
 
 import com.pinhobrunodev.animesforum.dto.anime.AnimeDTO;
+import com.pinhobrunodev.animesforum.dto.gender.GenderDTO;
 import com.pinhobrunodev.animesforum.entities.Anime;
+import com.pinhobrunodev.animesforum.entities.Gender;
 import com.pinhobrunodev.animesforum.mapper.AnimeMapper;
 import com.pinhobrunodev.animesforum.repositories.AnimeRepository;
+import com.pinhobrunodev.animesforum.repositories.GenderRepository;
 import com.pinhobrunodev.animesforum.services.exceptions.DatabaseException;
 import com.pinhobrunodev.animesforum.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +24,10 @@ public class AnimeService {
     private AnimeRepository repository;
     @Autowired
     private AnimeMapper mapper;
-
+    @Autowired
+    private GenderService genderService;
+    @Autowired
+    private GenderRepository genderRepository;
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Transactional
@@ -63,6 +69,7 @@ public class AnimeService {
         Page<Anime> result = repository.findAll(pageable);
         return result.map(AnimeDTO::new);
     }
+
 
 
 }

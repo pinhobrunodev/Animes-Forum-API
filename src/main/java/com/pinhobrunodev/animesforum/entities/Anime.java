@@ -26,7 +26,7 @@ public class Anime implements Serializable {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant updatedAt;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(name = "tb_anime_gender"
     ,joinColumns = @JoinColumn(name = "anime_id")
     ,inverseJoinColumns = @JoinColumn(name = "gender_id"))
