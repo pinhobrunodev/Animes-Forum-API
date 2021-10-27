@@ -31,8 +31,8 @@ public class TopicResource {
     }
 
     @PatchMapping(value = "/update/{id}")
-    public ResponseEntity<ShowTopicCreatedDTO> save(@PathVariable Long id,@RequestBody UpdateTopicDTO dto) {
-        return ResponseEntity.ok().body(service.updateTopic(id,dto));
+    public ResponseEntity<ShowTopicCreatedDTO> save(@PathVariable Long id, @RequestBody UpdateTopicDTO dto) {
+        return ResponseEntity.ok().body(service.updateTopic(id, dto));
     }
 
 
@@ -48,14 +48,23 @@ public class TopicResource {
             @PageableDefault(page = 0, size = 10)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "title", direction = Sort.Direction.ASC)
-            })  Pageable pageable) {
+            }) Pageable pageable) {
         return ResponseEntity.ok().body(service.pageAuthenticatedUserTopics(pageable));
     }
 
     @PostMapping(value = "/like/{id}")
-    public ResponseEntity<Void> likeTopics(@PathVariable Long id){
+    public ResponseEntity<Void> likeTopics(@PathVariable Long id) {
         service.likeTopic(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/page/filter")
+    public ResponseEntity<Page<ShowTopicCreatedDTO>> pageTopicByName(
+            @PageableDefault(page = 0, size = 10)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "likes", direction = Sort.Direction.ASC)
+            }) @RequestParam String topicName, Pageable pageable) {
+        return ResponseEntity.ok().body(service.pageTopicByName(topicName, pageable));
     }
 
 }

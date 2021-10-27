@@ -11,4 +11,7 @@ public interface TopicRepository extends JpaRepository<Topic,Long> {
 
     @Query("SELECT obj FROM Topic  obj WHERE obj.author = :author")
     Page<Topic> pageAuthenticatedUserTopics(User author, Pageable pageable);
+    @Query("SELECT  obj FROM Topic  obj WHERE obj.title = :title")
+    Page<Topic> pageTopicByName(String title,Pageable pageable);
+
 }

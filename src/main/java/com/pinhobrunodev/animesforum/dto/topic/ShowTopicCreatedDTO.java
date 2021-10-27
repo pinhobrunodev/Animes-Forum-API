@@ -5,7 +5,6 @@ import com.pinhobrunodev.animesforum.entities.Topic;
 
 public class ShowTopicCreatedDTO {
 
-    @JsonProperty("topic_id")
     private Long id;
     private String title;
     private String body;
@@ -34,6 +33,7 @@ public class ShowTopicCreatedDTO {
         this.qntLikes = qntLikes;
     }
 
+
     public Long getId() {
         return id;
     }
@@ -54,14 +54,6 @@ public class ShowTopicCreatedDTO {
         return body;
     }
 
-    public Double getQntLikes() {
-        return qntLikes;
-    }
-
-    public void setQntLikes(Double qntLikes) {
-        this.qntLikes = qntLikes;
-    }
-
     public void setBody(String body) {
         this.body = body;
     }
@@ -80,5 +72,13 @@ public class ShowTopicCreatedDTO {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public Double getQntLikes() {
+        return qntLikes;
+    }
+
+    public void setQntLikes(Double qntLikes) {
+        this.qntLikes = qntLikes;
     }
 }

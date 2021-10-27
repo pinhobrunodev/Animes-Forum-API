@@ -104,6 +104,16 @@ public class TopicService {
         repository.save(topic);
     }
 
+    @Transactional(readOnly = true)
+    public Page<ShowTopicCreatedDTO> pageTopicByName(String topicName,Pageable pageable){
+        Page<Topic> result = repository.pageTopicByName(topicName,pageable);
+        if(result.isEmpty()){
+            throw  new ResourceNotFoundException("There are no Topic's relation with this name : " +topicName);
+        }
+        return result.map(ShowTopicCreatedDTO::new);
+    }
+
+
 
     // Auxiliary services methods
 
