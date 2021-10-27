@@ -8,9 +8,11 @@ import com.pinhobrunodev.animesforum.entities.Topic;
 import com.pinhobrunodev.animesforum.entities.User;
 import com.pinhobrunodev.animesforum.mapper.TopicMapper;
 import com.pinhobrunodev.animesforum.repositories.TopicRepository;
+import com.pinhobrunodev.animesforum.repositories.UserRepository;
 import com.pinhobrunodev.animesforum.services.exceptions.DatabaseException;
 import com.pinhobrunodev.animesforum.services.exceptions.ForbiddenException;
 import com.pinhobrunodev.animesforum.services.exceptions.ResourceNotFoundException;
+import com.pinhobrunodev.animesforum.services.exceptions.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -33,12 +35,18 @@ public class TopicService {
     private TopicMapper mapper;
     @Autowired
     private AuthService authService;
+    @Autowired
+    private UserRepository userRepository;
 
 
     @Transactional
     public ShowTopicCreatedDTO insertTopic(InsertTopicDTO dto) {
         Topic topic = new Topic();
         topic = mapper.copyDtoToEntity(topic, dto);
+        User user = userRepository.getOne(topic.getAuthor().getId());
+        if (user.hasRole("ROLE_MODERATOR")) {
+            throw new ForbiddenException("Access Denied");
+        }
         repository.save(topic);
         return new ShowTopicCreatedDTO(topic);
     }
@@ -89,5 +97,39 @@ public class TopicService {
         Page<Topic> result = repository.pageAuthenticatedUserTopics(user, pageable);
         return result.map(ShowTopicCreatedDTO::new);
     }
+
+    @Transactional
+    public void likeTopic(Long topicId) {
+        Topic topic = likeTopics(topicId);
+        repository.save(topic);
+    }
+
+
+    // Auxiliary services methods
+
+
+    private Topic likeTopics(Long topicId) {
+        try {
+            Double topicLike = 0.0;
+            User user = authService.authenticated();
+            Topic topic = repository.getOne(topicId);
+            if (topic.getAuthor().getId() == user.getId()) {
+                throw new UnauthorizedException("You cant Like your own Topic !!");
+            }
+            //topic 1 user 2
+            // se o id de usuairo ja estiver presente ta tabela de um topico que deu like
+            if (topic.getLikes().stream().anyMatch(x->x.getId() == user.getId())) {
+                throw new UnauthorizedException("You already liked that post");
+            }
+
+            topic.getLikes().add(user);
+            topic.setQntLikes(Double.sum(topic.getQntLikes(), 1.0));
+            return topic;
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Id not found : " + topicId);
+        }
+
+    }
+
 
 }

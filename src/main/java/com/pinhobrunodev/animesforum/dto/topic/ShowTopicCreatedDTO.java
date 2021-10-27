@@ -11,23 +11,27 @@ public class ShowTopicCreatedDTO {
     private String body;
     private String animeName;
     private String createdBy;
+    private Double qntLikes;
 
     public ShowTopicCreatedDTO() {
     }
 
     public ShowTopicCreatedDTO(Topic entity) {
+        id = entity.getId();
         title = entity.getTitle();
         body = entity.getBody();
         animeName = entity.getAnime().getTitle();
         createdBy = entity.getCreatedBy();
+        qntLikes = entity.getQntLikes();
     }
 
-    public ShowTopicCreatedDTO(Long id ,String title, String body, String animeName, String createdBy) {
+    public ShowTopicCreatedDTO(Long id, String title, String body, String animeName, String createdBy, Double qntLikes) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.animeName = animeName;
         this.createdBy = createdBy;
+        this.qntLikes = qntLikes;
     }
 
     public Long getId() {
@@ -48,6 +52,14 @@ public class ShowTopicCreatedDTO {
 
     public String getBody() {
         return body;
+    }
+
+    public Double getQntLikes() {
+        return qntLikes;
+    }
+
+    public void setQntLikes(Double qntLikes) {
+        this.qntLikes = qntLikes;
     }
 
     public void setBody(String body) {

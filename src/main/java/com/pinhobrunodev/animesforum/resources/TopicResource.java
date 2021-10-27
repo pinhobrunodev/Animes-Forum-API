@@ -52,5 +52,10 @@ public class TopicResource {
         return ResponseEntity.ok().body(service.pageAuthenticatedUserTopics(pageable));
     }
 
+    @PostMapping(value = "/like/{id}")
+    public ResponseEntity<Void> likeTopics(@PathVariable Long id){
+        service.likeTopic(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }

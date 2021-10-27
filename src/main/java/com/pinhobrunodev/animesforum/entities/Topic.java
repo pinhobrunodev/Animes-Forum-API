@@ -16,6 +16,7 @@ public class Topic implements Serializable {
     private String title;
     @Column(columnDefinition = "TEXT")
     private String body;
+    private Double qntLikes;
     private String  createdBy;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
@@ -37,11 +38,11 @@ public class Topic implements Serializable {
     public Topic() {
     }
 
-
-    public Topic(Long id, String title, String body, String createdBy, Instant createdAt, Instant updatedAt, Anime anime, User author) {
+    public Topic(Long id, String title, String body, Double qntLikes, String createdBy, Instant createdAt, Instant updatedAt, Anime anime, User author) {
         this.id = id;
         this.title = title;
         this.body = body;
+        this.qntLikes = qntLikes;
         this.createdBy = createdBy;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -71,6 +72,14 @@ public class Topic implements Serializable {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public Double getQntLikes() {
+        return qntLikes;
+    }
+
+    public void setQntLikes(Double qntLikes) {
+        this.qntLikes = qntLikes;
     }
 
     public Anime getAnime() {
@@ -112,6 +121,7 @@ public class Topic implements Serializable {
     @PrePersist
     public void PrePersist() {
         createdAt = Instant.now();
+        qntLikes = 0.0;
     }
 
     @PreUpdate
