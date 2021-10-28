@@ -1,6 +1,7 @@
 package com.pinhobrunodev.animesforum.dto.topic;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.pinhobrunodev.animesforum.entities.Reply;
 import com.pinhobrunodev.animesforum.entities.Topic;
 
 public class ShowTopicCreatedDTO {

@@ -3,56 +3,49 @@ package com.pinhobrunodev.animesforum.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "tb_topic")
-public class Topic implements Serializable {
+@Table(name = "tb_reply")
+public class Reply implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
     @Column(columnDefinition = "TEXT")
     private String body;
     private Double qntLikes;
-    private String  createdBy;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant updatedAt;
 
     @ManyToOne
-    @JoinColumn(name = "anime_id")
-    private Anime anime;
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User author;
+    private User replyAuthor;
 
     @ManyToMany
-    @JoinTable(name = "tb_topic_like",joinColumns = @JoinColumn(name = "topic_id")
+    @JoinTable(name = "tb_reply_like"
+            ,joinColumns = @JoinColumn(name = "reply_id")
             ,inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> likes = new HashSet<>();
 
-    @OneToMany(mappedBy = "topic")
-    private List<Reply> replies = new ArrayList<>();
 
-    public Topic() {
+
+    public Reply() {
     }
 
-    public Topic(Long id, String title, String body, Double qntLikes, String createdBy, Instant createdAt, Instant updatedAt, Anime anime, User author) {
+    public Reply(Long id, String body, Double qntLikes, Instant createdAt, Instant updatedAt) {
         this.id = id;
-        this.title = title;
         this.body = body;
         this.qntLikes = qntLikes;
-        this.createdBy = createdBy;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.anime = anime;
-        this.author = author;
     }
 
     public Long getId() {
@@ -61,14 +54,6 @@ public class Topic implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getBody() {
@@ -87,44 +72,32 @@ public class Topic implements Serializable {
         this.qntLikes = qntLikes;
     }
 
-    public Anime getAnime() {
-        return anime;
-    }
-
-    public void setAnime(Anime anime) {
-        this.anime = anime;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Set<User> getLikes() {
-        return likes;
-    }
-
-    public List<Reply> getReplies() {
-        return replies;
-    }
-
     public Instant getCreatedAt() {
         return createdAt;
     }
 
     public Instant getUpdatedAt() {
         return updatedAt;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
+
+    public User getReplyAuthor() {
+        return replyAuthor;
+    }
+
+    public void setReplyAuthor(User replyAuthor) {
+        this.replyAuthor = replyAuthor;
+    }
+
+    public Set<User> getLikes() {
+        return likes;
     }
 
     @PrePersist
@@ -137,6 +110,4 @@ public class Topic implements Serializable {
     public void PreUpdate() {
         updatedAt = Instant.now();
     }
-
-
 }

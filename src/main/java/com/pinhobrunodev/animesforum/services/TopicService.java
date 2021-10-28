@@ -2,8 +2,8 @@ package com.pinhobrunodev.animesforum.services;
 
 import com.pinhobrunodev.animesforum.dto.topic.InsertTopicDTO;
 import com.pinhobrunodev.animesforum.dto.topic.ShowTopicCreatedDTO;
+import com.pinhobrunodev.animesforum.dto.topic.ShowTopicWithRepliesDTO;
 import com.pinhobrunodev.animesforum.dto.topic.UpdateTopicDTO;
-import com.pinhobrunodev.animesforum.entities.Role;
 import com.pinhobrunodev.animesforum.entities.Topic;
 import com.pinhobrunodev.animesforum.entities.User;
 import com.pinhobrunodev.animesforum.mapper.TopicMapper;
@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Objects;
 
 
 @Service
@@ -113,6 +112,13 @@ public class TopicService {
         return result.map(ShowTopicCreatedDTO::new);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','MODERATOR','BASIC')")
+    @Transactional(readOnly = true)
+    public Page<ShowTopicWithRepliesDTO> showPagedTopicWithRepliesByTopicId(Long topicId,Pageable pageable){
+        Page<Topic> result = repository.showPagedTopicWithRepliesByTopicId(topicId,pageable);
+        return result.map(x-> new ShowTopicWithRepliesDTO(x,x.getReplies()));
+
+    }
 
 
     // Auxiliary services methods

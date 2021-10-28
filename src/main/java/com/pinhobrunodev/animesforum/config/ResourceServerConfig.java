@@ -27,22 +27,31 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         }
 
         http.authorizeRequests()
+
                 .antMatchers(PUBLIC).permitAll()
+
                 .antMatchers(HttpMethod.POST,USER_ENDPOINT).permitAll()
                 .antMatchers(HttpMethod.PUT,USER_ENDPOINT).authenticated()
                 .antMatchers(HttpMethod.GET,USER_ENDPOINT).authenticated()
+
                 .antMatchers(HttpMethod.POST,GENDER_ENDPOINT).hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.PUT,GENDER_ENDPOINT).hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE,GENDER_ENDPOINT).hasAnyRole("ADMIN")
+
                 .antMatchers(HttpMethod.GET,ANIME_ENDPOINT).authenticated()
+
                 .antMatchers(HttpMethod.POST,ANIME_REQUEST_ENDPOINT).authenticated()
                 .antMatchers(HttpMethod.PATCH,ANIME_REQUEST_ENDPOINT).hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.GET,ANIME_REQUEST_ENDPOINT).hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE,ANIME_REQUEST_ENDPOINT).hasAnyRole("ADMIN")
+
                 .antMatchers(HttpMethod.POST,TOPIC_ENDPOINT).hasAnyRole("ADMIN","BASIC","MODERATOR")
                 .antMatchers(HttpMethod.PATCH,TOPIC_ENDPOINT).hasAnyRole("ADMIN","BASIC")
                 .antMatchers(HttpMethod.GET,TOPIC_ENDPOINT).authenticated()
                 .antMatchers(HttpMethod.DELETE,TOPIC_ENDPOINT).authenticated()
+
+                .antMatchers(HttpMethod.GET,REPLY_ENDPOINT).authenticated()
+                .antMatchers(HttpMethod.DELETE,REPLY_ENDPOINT).authenticated()
 
                 .anyRequest().authenticated();
     }

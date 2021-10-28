@@ -13,5 +13,7 @@ public interface TopicRepository extends JpaRepository<Topic,Long> {
     Page<Topic> pageAuthenticatedUserTopics(User author, Pageable pageable);
     @Query("SELECT  obj FROM Topic  obj WHERE obj.title = :title")
     Page<Topic> pageTopicByName(String title,Pageable pageable);
+    @Query("SELECT  obj FROM Topic  obj INNER  JOIN obj.replies  WHERE obj.id = :topicId")
+    Page<Topic>showPagedTopicWithRepliesByTopicId(Long topicId,Pageable pageable);
 
 }
