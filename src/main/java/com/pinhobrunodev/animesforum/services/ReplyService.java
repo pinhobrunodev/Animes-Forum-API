@@ -41,6 +41,10 @@ public class ReplyService {
         try {
             Reply reply = new Reply();
             reply = mapper.copyDtoToEntity(reply, dto);
+            User user = authService.authenticated();
+            if(user.getId() == reply.getTopic().getAuthor().getId()){
+                throw  new UnauthorizedException("You can't reply your own Topic , only answer others replies");
+            }
             repository.save(reply);
             return new ShowReplyDTO(reply);
         } catch (EntityNotFoundException e) {
