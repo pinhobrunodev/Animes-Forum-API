@@ -37,7 +37,7 @@ public class Topic implements Serializable {
             ,inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> likes = new HashSet<>();
 
-    @OneToMany(mappedBy = "topic")
+    @OneToMany(mappedBy = "topic",cascade = CascadeType.ALL)
     private List<Reply> replies = new ArrayList<>();
 
     public Topic() {
