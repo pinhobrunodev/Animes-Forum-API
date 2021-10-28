@@ -1,5 +1,7 @@
 package com.pinhobrunodev.animesforum.dto.topic;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.pinhobrunodev.animesforum.dto.reply.ReplyDTO;
 import com.pinhobrunodev.animesforum.dto.reply.ShowReplyDTO;
 import com.pinhobrunodev.animesforum.entities.Reply;
 import com.pinhobrunodev.animesforum.entities.Topic;
@@ -14,8 +16,9 @@ public class ShowTopicWithRepliesDTO {
     private String topicName;
     private String topicCreatedBy;
     private String topicTheme;
+    @JsonProperty("topic_qnt_likes")
     private Double qntLikes;
-    private List<ShowReplyDTO> replies = new ArrayList<>();
+    private List<ReplyDTO> replies = new ArrayList<>();
 
     public ShowTopicWithRepliesDTO() {
     }
@@ -26,7 +29,7 @@ public class ShowTopicWithRepliesDTO {
         topicTheme = entity.getAnime().getTitle();
         topicCreatedBy = entity.getAuthor().getNickname();
         qntLikes = entity.getQntLikes();
-        repliesEntity.forEach(x -> replies.add(new ShowReplyDTO(x)));
+        repliesEntity.forEach(x -> replies.add(new ReplyDTO(x)));
     }
 
     public Long getId() {
@@ -69,7 +72,7 @@ public class ShowTopicWithRepliesDTO {
         this.qntLikes = qntLikes;
     }
 
-    public List<ShowReplyDTO> getReplies() {
+    public List<ReplyDTO> getReplies() {
         return replies;
     }
 }
