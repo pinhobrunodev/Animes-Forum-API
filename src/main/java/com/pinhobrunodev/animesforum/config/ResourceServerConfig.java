@@ -55,6 +55,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,REPLY_ENDPOINT).authenticated()
                 .antMatchers(HttpMethod.DELETE,REPLY_ENDPOINT).authenticated()
 
+                .antMatchers(HttpMethod.GET,ANSWER_ENDPOINT).authenticated()
+                .antMatchers(HttpMethod.DELETE,ANSWER_ENDPOINT).authenticated()
+
                 .anyRequest().authenticated();
     }
 

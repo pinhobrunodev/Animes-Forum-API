@@ -11,5 +11,6 @@ public class EndpointsConfigurer {
     public static final String [] TOPIC_ENDPOINT = {"/topics/**"};
     public static final String [] REPLY_ENDPOINT = {"/replies/**"};
     public static final String [] NOTIFICATION_ENDPOINT = {"/notifications/**"};
+    public static final String [] ANSWER_ENDPOINT = {"/answers/**"};
 
 }

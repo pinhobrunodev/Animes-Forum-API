@@ -43,6 +43,10 @@ public class User implements Serializable, UserDetails {
     @OneToMany(mappedBy = "topicAuthor")
     private List<Notification> notifications = new ArrayList<>();
 
+
+    @OneToMany(mappedBy = "topicAuthor")
+    private List<Answer> answers = new ArrayList<>();
+
     public User(){
 
     }
@@ -138,6 +142,10 @@ public class User implements Serializable, UserDetails {
 
     public List<Notification> getNotifications() {
         return notifications;
+    }
+
+    public List<Answer> getAnswers() {
+        return answers;
     }
 
     @Override
