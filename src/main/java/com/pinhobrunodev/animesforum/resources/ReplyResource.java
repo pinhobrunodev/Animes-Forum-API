@@ -8,6 +8,7 @@ import com.pinhobrunodev.animesforum.dto.topic.ShowTopicCreatedDTO;
 import com.pinhobrunodev.animesforum.dto.topic.UpdateTopicDTO;
 import com.pinhobrunodev.animesforum.services.ReplyService;
 import com.pinhobrunodev.animesforum.services.TopicService;
+import javassist.compiler.ast.Variable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,10 +28,10 @@ public class ReplyResource {
     @Autowired
     private ReplyService service;
 
-    @PostMapping(value = "/insert")
-    public ResponseEntity<ShowReplyDTO> save(@RequestBody InsertReplyDTO dto) {
+    @PostMapping(value = "/insert/topic/{id}")
+    public ResponseEntity<ShowReplyDTO> save(@PathVariable Long id, @RequestBody InsertReplyDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
-        return ResponseEntity.created(uri).body(service.save(dto));
+        return ResponseEntity.created(uri).body(service.save(dto,id));
     }
 
     @PatchMapping(value = "/update/{id}")

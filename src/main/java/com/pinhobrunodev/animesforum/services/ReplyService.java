@@ -37,13 +37,13 @@ public class ReplyService {
 
     @PreAuthorize("hasAnyRole('ADMIN','MODERATOR','BASIC')")
     @Transactional
-    public ShowReplyDTO save(InsertReplyDTO dto) {
+    public ShowReplyDTO save(InsertReplyDTO dto, Long topicId) {
         try {
             Reply reply = new Reply();
-            reply = mapper.copyDtoToEntity(reply, dto);
+            reply = mapper.copyDtoToEntity(reply, dto, topicId);
             User user = authService.authenticated();
-            if(user.getId() == reply.getTopic().getAuthor().getId()){
-                throw  new UnauthorizedException("You can't reply your own Topic , only answer others replies");
+            if (user.getId() == reply.getTopic().getAuthor().getId()) {
+                throw new UnauthorizedException("You can't reply your own Topic , only answer others replies");
             }
             repository.save(reply);
             return new ShowReplyDTO(reply);

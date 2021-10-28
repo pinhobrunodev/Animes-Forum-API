@@ -35,13 +35,13 @@ public class ReplyMapper {
 
 
     @Transactional
-    public Reply copyDtoToEntity(Reply entity, InsertReplyDTO dto) {
+    public Reply copyDtoToEntity(Reply entity, InsertReplyDTO dto,Long topicId) {
         Notification notification = new Notification();
-        Optional<Topic> result = topicRepository.findById(dto.getTopicId());
+        Optional<Topic> result = topicRepository.findById(topicId);
         if(result.isEmpty()){
-            throw  new ResourceNotFoundException("Topic ID not found : "+dto.getTopicId());
+            throw  new ResourceNotFoundException("Topic ID not found : "+topicId);
         }
-        Topic topic = topicRepository.getOne(dto.getTopicId());
+        Topic topic = topicRepository.getOne(topicId);
         User replyAuthor = authService.authenticated();
         entity.setBody(dto.getBody());
         entity.setTopic(topic);
