@@ -1,9 +1,8 @@
 package com.pinhobrunodev.animesforum.resources;
 
-import com.pinhobrunodev.animesforum.dto.anime.AnimeDTO;
 import com.pinhobrunodev.animesforum.dto.topic.InsertTopicDTO;
 import com.pinhobrunodev.animesforum.dto.topic.ShowTopicCreatedDTO;
-import com.pinhobrunodev.animesforum.dto.topic.ShowTopicWithRepliesDTO;
+import com.pinhobrunodev.animesforum.dto.topic.ShowTopicWithRepliesAndAnswersDTO;
 import com.pinhobrunodev.animesforum.dto.topic.UpdateTopicDTO;
 import com.pinhobrunodev.animesforum.services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +69,7 @@ public class TopicResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Page<ShowTopicWithRepliesDTO>> showPagedTopicWithRepliesByTopicId(
+    public ResponseEntity<Page<ShowTopicWithRepliesAndAnswersDTO>> showPagedTopicWithRepliesByTopicId(
             @PageableDefault(page = 0, size = 10)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "qntLikes", direction = Sort.Direction.DESC)

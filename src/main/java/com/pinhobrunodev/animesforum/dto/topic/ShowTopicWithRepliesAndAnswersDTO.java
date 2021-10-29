@@ -1,35 +1,29 @@
 package com.pinhobrunodev.animesforum.dto.topic;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pinhobrunodev.animesforum.dto.reply.ReplyDTO;
-import com.pinhobrunodev.animesforum.dto.reply.ShowReplyDTO;
 import com.pinhobrunodev.animesforum.entities.Reply;
 import com.pinhobrunodev.animesforum.entities.Topic;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowTopicWithRepliesDTO {
-
+public class ShowTopicWithRepliesAndAnswersDTO {
 
     private Long id;
     private String topicName;
     private String topicCreatedBy;
     private String topicTheme;
-    @JsonProperty("topic_qnt_likes")
-    private Double qntLikes;
-    private List<ReplyDTO> replies = new ArrayList<>();
+    private Double topicLikes;
+    private List<ReplyDTO> topicReplies = new ArrayList<>();
 
-    public ShowTopicWithRepliesDTO() {
+    public ShowTopicWithRepliesAndAnswersDTO() {
     }
-
-    public ShowTopicWithRepliesDTO(Topic entity, List<Reply> repliesEntity) {
+    public ShowTopicWithRepliesAndAnswersDTO(Topic entity, List<Reply> repliesEntity) {
         id = entity.getId();
         topicName = entity.getTitle();
         topicTheme = entity.getAnime().getTitle();
-        topicCreatedBy = entity.getAuthor().getNickname();
-        qntLikes = entity.getQntLikes();
-        repliesEntity.forEach(x -> replies.add(new ReplyDTO(x)));
+        topicLikes = entity.getQntLikes();
+        repliesEntity.forEach(x-> topicReplies.add(new ReplyDTO(x,x.getAnswers())));
     }
 
     public Long getId() {
@@ -64,15 +58,16 @@ public class ShowTopicWithRepliesDTO {
         this.topicTheme = topicTheme;
     }
 
-    public Double getQntLikes() {
-        return qntLikes;
+    public Double getTopicLikes() {
+        return topicLikes;
     }
 
-    public void setQntLikes(Double qntLikes) {
-        this.qntLikes = qntLikes;
+    public void setTopicLikes(Double topicLikes) {
+        this.topicLikes = topicLikes;
     }
 
-    public List<ReplyDTO> getReplies() {
-        return replies;
+    public List<ReplyDTO> getTopicReplies() {
+        return topicReplies;
     }
+
 }

@@ -15,9 +15,13 @@ public class ShowMyAnswersPagedDTO {
     public ShowMyAnswersPagedDTO() {
     }
 
-    public ShowMyAnswersPagedDTO(Answer entity){
+    public ShowMyAnswersPagedDTO(Answer entity) {
         id = entity.getId();
         body = entity.getBody();
+        for (Reply r : entity.getReplies()) {
+            topicName = r.getTopic().getTitle();
+
+        }
         answeredAt = FormatInstant.format(entity.getCreatedAt());
     }
 

@@ -8,18 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer,Long> {
 
 
 
-    @Query("SELECT  obj FROM Answer  obj INNER  JOIN  obj.topicAuthor author WHERE  author = :author")
-    Page<Answer> findByTopicAuthorBasic(User author, Pageable pageable);
-
-   /*
-
-    TODO : Make a SQL QUERY that bring ADM OR MOD ANSWERS
-
-   @Query("SELECT  obj FROM Answer obj INNER  JOIN obj.topicAuthor t where  t.nickname = :nickname")
-    Page<Answer> findByNicknameAuthorAdminOrModerator(String nickname, Pageable pageable);*/
+    @Query("SELECT  obj FROM Answer  obj where obj.answeredAuthor = :answeredAuthor")
+    Page<Answer> findByTopicAuthorBasic(String answeredAuthor, Pageable pageable);
 }
