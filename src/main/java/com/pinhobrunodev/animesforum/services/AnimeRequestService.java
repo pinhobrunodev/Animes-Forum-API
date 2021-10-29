@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Component
 public class AnimeRequestService {
@@ -42,7 +43,7 @@ public class AnimeRequestService {
        try{
            AnimeRequest animeRequest = repository.getOne(animeRequestId);
            animeRequest.setStatus(AnimeRequestStatus.ACCEPTED);
-           animeRequest.setAcceptedAt(Instant.now());
+           animeRequest.setAcceptedAt(LocalDateTime.now());
        }catch (EntityNotFoundException e){
            throw  new ResourceNotFoundException("Id not found : "+animeRequestId);
        }
@@ -53,7 +54,7 @@ public class AnimeRequestService {
         try{
             AnimeRequest animeRequest = repository.getOne(animeRequestId);
             animeRequest.setStatus(AnimeRequestStatus.DENIED);
-            animeRequest.setDeniedAt(Instant.now());
+            animeRequest.setDeniedAt(LocalDateTime.now());
         }catch (EntityNotFoundException e){
             throw  new ResourceNotFoundException("Id not found : "+animeRequestId);
         }

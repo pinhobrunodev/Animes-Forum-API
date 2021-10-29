@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TopicRepository extends JpaRepository<Topic,Long> {
 
+
+
     @Query("SELECT obj FROM Topic  obj WHERE obj.author = :author")
     Page<Topic> pageAuthenticatedUserTopics(User author, Pageable pageable);
     @Query("SELECT  obj FROM Topic  obj WHERE obj.title = :title")
@@ -16,4 +18,5 @@ public interface TopicRepository extends JpaRepository<Topic,Long> {
     @Query("SELECT  obj FROM Topic  obj  WHERE obj.id = :topicId")
     Page<Topic>showPagedTopicWithRepliesByTopicId(Long topicId,Pageable pageable);
 
+    Topic findByTitle(String title);
 }

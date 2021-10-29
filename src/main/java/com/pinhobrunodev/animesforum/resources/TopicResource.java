@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -26,13 +27,13 @@ public class TopicResource {
     private TopicService service;
 
     @PostMapping(value = "/insert")
-    public ResponseEntity<ShowTopicCreatedDTO> save(@RequestBody InsertTopicDTO dto) {
+    public ResponseEntity<ShowTopicCreatedDTO> save(@Valid  @RequestBody InsertTopicDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(service.insertTopic(dto));
     }
 
     @PatchMapping(value = "/update/{id}")
-    public ResponseEntity<ShowTopicCreatedDTO> save(@PathVariable Long id, @RequestBody UpdateTopicDTO dto) {
+    public ResponseEntity<ShowTopicCreatedDTO> save(@PathVariable Long id, @Valid  @RequestBody UpdateTopicDTO dto) {
         return ResponseEntity.ok().body(service.updateTopic(id, dto));
     }
 

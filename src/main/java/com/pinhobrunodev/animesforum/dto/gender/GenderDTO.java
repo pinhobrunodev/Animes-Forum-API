@@ -2,9 +2,12 @@ package com.pinhobrunodev.animesforum.dto.gender;
 
 import com.pinhobrunodev.animesforum.entities.Gender;
 
+import javax.validation.constraints.NotBlank;
+
 public class GenderDTO {
 
     private Long id;
+    @NotBlank(message = "Mandatory field.")
     private String name;
 
     public GenderDTO(){

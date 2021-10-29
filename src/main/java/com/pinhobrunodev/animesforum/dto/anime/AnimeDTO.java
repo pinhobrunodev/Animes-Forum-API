@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pinhobrunodev.animesforum.dto.gender.GenderDTO;
 import com.pinhobrunodev.animesforum.entities.Anime;
 import com.pinhobrunodev.animesforum.entities.Gender;
+import com.pinhobrunodev.animesforum.validations.anime.AnimeInsertValid;
+import com.pinhobrunodev.animesforum.validations.anime.AnimeUpdateValid;
 
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +16,15 @@ import java.util.Set;
 public class AnimeDTO {
 
     private Long id;
+    @NotBlank(message = "Mandatory field.")
     private String title;
+    @NotBlank(message = "Mandatory field.")
     private String description;
+    @NotBlank(message = "Mandatory field.")
     private String imgUrl;
+    @NotNull(message = "Mandatory field.")
+    //@Past(message = "Date can't be future.")
+    @PastOrPresent(message = "Date can't be future")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate releaseDate;
     private List<GenderDTO> genders = new ArrayList<>();

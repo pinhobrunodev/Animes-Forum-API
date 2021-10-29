@@ -4,13 +4,19 @@ package com.pinhobrunodev.animesforum.dto.user;
 import com.pinhobrunodev.animesforum.dto.role.RoleDTO;
 import com.pinhobrunodev.animesforum.entities.User;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 
 public class UserDTO {
 
     private Long id;
     private String firstName;
     private String lastName;
+    @NotBlank(message = "Mandatory field.")
     private String nickname;
+    @NotBlank(message = "Mandatory field.")
+    @Email(message = "Please insert a valid E-mail.")
     private String email;
 
     public UserDTO() {

@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -29,13 +30,13 @@ public class ReplyResource {
     private ReplyService service;
 
     @PostMapping(value = "/insert/topic/{id}")
-    public ResponseEntity<ShowReplyDTO> save(@PathVariable Long id, @RequestBody InsertReplyDTO dto) {
+    public ResponseEntity<ShowReplyDTO> save(@PathVariable Long id,@Valid @RequestBody InsertReplyDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(service.save(dto,id));
     }
 
     @PatchMapping(value = "/update/{id}")
-    public ResponseEntity<ShowReplyDTO> save(@PathVariable Long id, @RequestBody UpdateReplyDTO dto) {
+    public ResponseEntity<ShowReplyDTO> save(@PathVariable Long id, @Valid @RequestBody UpdateReplyDTO dto) {
         return ResponseEntity.ok().body(service.update(id, dto));
     }
 

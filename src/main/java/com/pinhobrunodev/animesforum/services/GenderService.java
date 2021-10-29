@@ -2,6 +2,8 @@ package com.pinhobrunodev.animesforum.services;
 
 import com.pinhobrunodev.animesforum.dto.anime.AnimeDTO;
 import com.pinhobrunodev.animesforum.dto.gender.GenderDTO;
+import com.pinhobrunodev.animesforum.dto.gender.InsertGenderDTO;
+import com.pinhobrunodev.animesforum.dto.gender.UpdateGenderDTO;
 import com.pinhobrunodev.animesforum.entities.Anime;
 import com.pinhobrunodev.animesforum.entities.Gender;
 import com.pinhobrunodev.animesforum.mapper.GenderMapper;
@@ -35,14 +37,14 @@ public class GenderService {
     private GenderMapper mapper;
 
     @Transactional
-    public GenderDTO save(GenderDTO dto) {
+    public GenderDTO save(InsertGenderDTO dto) {
         Gender gender = new Gender();
         return new GenderDTO(repository.save(mapper.copyDtoToEntity(gender, dto)));
     }
 
 
     @Transactional
-    public GenderDTO update(Long id, GenderDTO dto) {
+    public GenderDTO update(Long id, UpdateGenderDTO dto) {
 
         try {
             Gender gender = new Gender();

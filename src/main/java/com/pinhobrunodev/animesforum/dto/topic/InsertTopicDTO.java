@@ -1,12 +1,19 @@
 package com.pinhobrunodev.animesforum.dto.topic;
 
-import javax.persistence.Column;
+import com.pinhobrunodev.animesforum.validations.topic.TopicInsertValid;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@TopicInsertValid
 public class InsertTopicDTO {
 
     private Long id;
+    @NotBlank(message = "Mandatory field.")
     private String title;
+    @NotBlank(message = "Mandatory field.")
     private String body;
+    @NotNull(message = "Anime Id must not be empty.")
     private Long animeId;
 
     public InsertTopicDTO() {

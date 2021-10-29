@@ -1,5 +1,8 @@
 package com.pinhobrunodev.animesforum.dto.user;
 
+import com.pinhobrunodev.animesforum.validations.user.UserInsertValid;
+
+@UserInsertValid
 public class UserInsertDTO extends UserDTO {
 
     private String password;

@@ -1,9 +1,14 @@
 package com.pinhobrunodev.animesforum.dto.answer;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class InsertAnswerDTO {
 
     private Long id;
+    @NotBlank(message = "Mandatory field")
     private String body;
+    @NotNull(message = "Reply ID must not be empty.")
     private Long replyId;
 
 

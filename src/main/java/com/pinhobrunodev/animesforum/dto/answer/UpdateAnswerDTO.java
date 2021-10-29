@@ -1,9 +1,13 @@
 package com.pinhobrunodev.animesforum.dto.answer;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class UpdateAnswerDTO {
 
-    private  String body;
-    private Long answerId;
+    @NotBlank(message = "Mandatory field")
+    private String body;
+
 
     public UpdateAnswerDTO() {
     }
@@ -17,11 +21,4 @@ public class UpdateAnswerDTO {
         this.body = body;
     }
 
-    public Long getAnswerId() {
-        return answerId;
-    }
-
-    public void setAnswerId(Long answerId) {
-        this.answerId = answerId;
-    }
 }
