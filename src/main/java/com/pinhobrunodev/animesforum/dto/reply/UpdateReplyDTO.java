@@ -1,7 +1,10 @@
 package com.pinhobrunodev.animesforum.dto.reply;
 
+import javax.validation.constraints.NotBlank;
+
 public class UpdateReplyDTO {
 
+    @NotBlank(message = "Mandatory field.")
     private String body;
 
 
