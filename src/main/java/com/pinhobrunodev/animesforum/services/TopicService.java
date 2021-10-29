@@ -2,7 +2,7 @@ package com.pinhobrunodev.animesforum.services;
 
 import com.pinhobrunodev.animesforum.dto.topic.InsertTopicDTO;
 import com.pinhobrunodev.animesforum.dto.topic.ShowTopicCreatedDTO;
-import com.pinhobrunodev.animesforum.dto.topic.ShowTopicWithRepliesDTO;
+import com.pinhobrunodev.animesforum.dto.topic.ShowTopicWithRepliesAndAnswersDTO;
 import com.pinhobrunodev.animesforum.dto.topic.UpdateTopicDTO;
 import com.pinhobrunodev.animesforum.entities.Topic;
 import com.pinhobrunodev.animesforum.entities.User;
@@ -114,9 +114,9 @@ public class TopicService {
 
     @PreAuthorize("hasAnyRole('ADMIN','MODERATOR','BASIC')")
     @Transactional(readOnly = true)
-    public Page<ShowTopicWithRepliesDTO> showPagedTopicWithRepliesByTopicId(Long topicId,Pageable pageable){
+    public Page<ShowTopicWithRepliesAndAnswersDTO> showPagedTopicWithRepliesByTopicId(Long topicId, Pageable pageable){
         Page<Topic> result = repository.showPagedTopicWithRepliesByTopicId(topicId,pageable);
-        return result.map(x-> new ShowTopicWithRepliesDTO(x,x.getReplies()));
+        return result.map(x-> new ShowTopicWithRepliesAndAnswersDTO(x,x.getReplies()));
 
     }
 

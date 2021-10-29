@@ -35,10 +35,22 @@ public class AnswerMapper {
         Reply reply = replyRepository.getOne(dto.getReplyId());
         answer.setBody(dto.getBody());
         answer.setTopicAuthor(reply.getTopic().getAuthor());
+
+        if (user.hasRole("ROLE_ADMIN") && user.getId() != answer.getTopicAuthor().getId()) {
+            answer.setAnsweredAuthor(user.getNickname());
+            answer.getReplies().add(reply);
+            return answer;
+        }
+        if (user.hasRole("ROLE_MODERATOR") && user.getId() != answer.getTopicAuthor().getId()) {
+            answer.setAnsweredAuthor(user.getNickname());
+            answer.getReplies().add(reply);
+            return answer;
+        }
+        answer.setAnsweredAuthor(answer.getTopicAuthor().getNickname());
         answer.getReplies().add(reply);
-
-
         return answer;
+
+
     }
 
     public Answer updateAnswerAux(Long answerId, UpdateAnswerDTO dto) {

@@ -1,18 +1,12 @@
 package com.pinhobrunodev.animesforum.dto.answer;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pinhobrunodev.animesforum.auxiliary.FormatInstant;
-import com.pinhobrunodev.animesforum.dto.reply.ReplyDTO;
 import com.pinhobrunodev.animesforum.entities.Answer;
 import com.pinhobrunodev.animesforum.entities.Reply;
-import com.pinhobrunodev.animesforum.services.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+public class ShowAnswerTopicReplyDTO {
 
-public class ShowAnswerDTO {
+
 
     private Long id;
     private String topicAuthor;
@@ -20,16 +14,11 @@ public class ShowAnswerDTO {
     private String answeredAuthor;
     private String replyAuthor;
     private String answeredAt;
-    private List<ReplyDTO> replies = new ArrayList<>();
 
-    @Autowired
-    private AuthService service;
-
-    public ShowAnswerDTO() {
+    public ShowAnswerTopicReplyDTO() {
     }
 
-
-    public ShowAnswerDTO(Answer entity) {
+    public ShowAnswerTopicReplyDTO(Answer entity) {
         id = entity.getId();
         body = entity.getBody();
         topicAuthor = entity.getTopicAuthor().getNickname();
@@ -87,6 +76,4 @@ public class ShowAnswerDTO {
     public void setAnsweredAt(String answeredAt) {
         this.answeredAt = answeredAt;
     }
-
-
 }

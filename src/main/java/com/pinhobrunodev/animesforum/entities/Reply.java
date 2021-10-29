@@ -36,6 +36,9 @@ public class Reply implements Serializable {
     private Set<User> likes = new HashSet<>();
 
 
+    @ManyToMany(mappedBy = "replies",cascade = CascadeType.REMOVE)
+    private Set<Answer> answers = new HashSet<>();
+
 
     public Reply() {
     }
@@ -98,6 +101,10 @@ public class Reply implements Serializable {
 
     public Set<User> getLikes() {
         return likes;
+    }
+
+    public Set<Answer> getAnswers() {
+        return answers;
     }
 
     @PrePersist

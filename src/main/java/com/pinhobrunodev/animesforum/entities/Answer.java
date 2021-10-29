@@ -16,6 +16,7 @@ public class Answer  implements Serializable {
     private Long id;
     @Column(columnDefinition = "TEXT")
     private String body;
+    private String answeredAuthor;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE",name = "answeredAt")
     private Instant createdAt;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -53,6 +54,14 @@ public class Answer  implements Serializable {
 
     public String getBody() {
         return body;
+    }
+
+    public String getAnsweredAuthor() {
+        return answeredAuthor;
+    }
+
+    public void setAnsweredAuthor(String answeredAuthor) {
+        this.answeredAuthor = answeredAuthor;
     }
 
     public void setBody(String body) {

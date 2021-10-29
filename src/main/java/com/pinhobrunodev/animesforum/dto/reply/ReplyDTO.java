@@ -1,28 +1,33 @@
 package com.pinhobrunodev.animesforum.dto.reply;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pinhobrunodev.animesforum.auxiliary.FormatInstant;
+import com.pinhobrunodev.animesforum.dto.answer.ShowAnswerTopicReplyDTO;
+import com.pinhobrunodev.animesforum.entities.Answer;
 import com.pinhobrunodev.animesforum.entities.Reply;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class ReplyDTO {
     private Long id;
-    private String body;
+    private String replyBody;
     private String replyAuthor;
-    @JsonProperty("reply_qnt_likes")
-    private Double qntLikes;
+    private Double replyLikes;
     private String createdAt;
-
+    private List<ShowAnswerTopicReplyDTO> replyAnswers = new ArrayList<>();
 
     public ReplyDTO() {
     }
 
 
-    public ReplyDTO(Reply entity) {
+    public ReplyDTO(Reply entity, Set<Answer> answerEntity) {
         id = entity.getId();
-        body = entity.getBody();
+        replyBody = entity.getBody();
         replyAuthor = entity.getReplyAuthor().getNickname();
-        qntLikes = entity.getQntLikes();
+        replyLikes = entity.getQntLikes();
         createdAt = FormatInstant.format(entity.getCreatedAt());
+        answerEntity.forEach(x->replyAnswers.add(new ShowAnswerTopicReplyDTO(x)));
     }
 
     public Long getId() {
@@ -33,12 +38,12 @@ public class ReplyDTO {
         this.id = id;
     }
 
-    public String getBody() {
-        return body;
+    public String getReplyBody() {
+        return replyBody;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setReplyBody(String replyBody) {
+        this.replyBody = replyBody;
     }
 
     public String getReplyAuthor() {
@@ -49,12 +54,12 @@ public class ReplyDTO {
         this.replyAuthor = replyAuthor;
     }
 
-    public Double getQntLikes() {
-        return qntLikes;
+    public Double getReplyLikes() {
+        return replyLikes;
     }
 
-    public void setQntLikes(Double qntLikes) {
-        this.qntLikes = qntLikes;
+    public void setReplyLikes(Double replyLikes) {
+        this.replyLikes = replyLikes;
     }
 
     public String getCreatedAt() {
@@ -64,4 +69,9 @@ public class ReplyDTO {
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
+
+    public List<ShowAnswerTopicReplyDTO> getReplyAnswers() {
+        return replyAnswers;
+    }
+
 }

@@ -3,7 +3,6 @@ package com.pinhobrunodev.animesforum.services;
 import com.pinhobrunodev.animesforum.dto.reply.InsertReplyDTO;
 import com.pinhobrunodev.animesforum.dto.reply.ShowReplyDTO;
 import com.pinhobrunodev.animesforum.dto.reply.UpdateReplyDTO;
-import com.pinhobrunodev.animesforum.dto.topic.ShowTopicWithRepliesDTO;
 import com.pinhobrunodev.animesforum.entities.Reply;
 import com.pinhobrunodev.animesforum.entities.User;
 import com.pinhobrunodev.animesforum.mapper.ReplyMapper;
