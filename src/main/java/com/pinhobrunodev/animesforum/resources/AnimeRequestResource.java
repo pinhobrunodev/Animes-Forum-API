@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -24,7 +25,7 @@ public class AnimeRequestResource {
 
 
     @PostMapping(value = "/send")
-    public ResponseEntity<Void> sendAnimeRequest(@RequestBody AnimeRequestDTO dto){
+    public ResponseEntity<Void> sendAnimeRequest(@Valid @RequestBody AnimeRequestDTO dto){
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         service.sendAnimeRequest(dto);
         return ResponseEntity.created(uri).build();

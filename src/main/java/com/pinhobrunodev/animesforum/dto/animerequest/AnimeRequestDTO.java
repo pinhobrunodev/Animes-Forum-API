@@ -1,23 +1,30 @@
 package com.pinhobrunodev.animesforum.dto.animerequest;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.pinhobrunodev.animesforum.auxiliary.FormatInstant;
 import com.pinhobrunodev.animesforum.entities.AnimeRequest;
 import com.pinhobrunodev.animesforum.enums.AnimeRequestStatus;
 
-import javax.persistence.Column;
-import java.time.Instant;
+import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 public class AnimeRequestDTO {
 
     private Long id;
+    @NotBlank(message = "Mandatory Field.")
     private String title;
+    @NotBlank(message = "Mandatory Field.")
+    private String body;
     private AnimeRequestStatus status;
     @JsonProperty("sent_at")
-    private Instant createdAt;
+    private String sentAt;
     @JsonProperty("accepted_at")
-    private Instant acceptedAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime acceptedAt;
     @JsonProperty("denied_at")
-    private Instant deniedAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime deniedAt;
 
     public AnimeRequestDTO() {
     }
@@ -25,20 +32,13 @@ public class AnimeRequestDTO {
     public AnimeRequestDTO(AnimeRequest entity) {
         id = entity.getId();
         title = entity.getTitle();
+        body = entity.getBody();
         status = entity.getStatus();
-        createdAt = entity.getCreatedAt();
+        sentAt = FormatInstant.format(entity.getCreatedAt());
         acceptedAt = entity.getAcceptedAt();
         deniedAt = entity.getDeniedAt();
     }
 
-    public AnimeRequestDTO(Long id, String title, AnimeRequestStatus status, Instant createdAt, Instant acceptedAt, Instant deniedAt) {
-        this.id = id;
-        this.title = title;
-        this.status = status;
-        this.createdAt = createdAt;
-        this.acceptedAt = acceptedAt;
-        this.deniedAt = deniedAt;
-    }
 
     public Long getId() {
         return id;
@@ -56,6 +56,14 @@ public class AnimeRequestDTO {
         this.title = title;
     }
 
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
     public AnimeRequestStatus getStatus() {
         return status;
     }
@@ -64,27 +72,27 @@ public class AnimeRequestDTO {
         this.status = status;
     }
 
-    public Instant getCreatedAt() {
-        return createdAt;
+    public String getSentAt() {
+        return sentAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
+    public void setSentAt(String sentAt) {
+        this.sentAt = sentAt;
     }
 
-    public Instant getAcceptedAt() {
+    public LocalDateTime getAcceptedAt() {
         return acceptedAt;
     }
 
-    public void setAcceptedAt(Instant acceptedAt) {
+    public void setAcceptedAt(LocalDateTime acceptedAt) {
         this.acceptedAt = acceptedAt;
     }
 
-    public Instant getDeniedAt() {
+    public LocalDateTime getDeniedAt() {
         return deniedAt;
     }
 
-    public void setDeniedAt(Instant deniedAt) {
+    public void setDeniedAt(LocalDateTime deniedAt) {
         this.deniedAt = deniedAt;
     }
 }
