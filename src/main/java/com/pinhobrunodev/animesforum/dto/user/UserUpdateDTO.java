@@ -1,7 +1,7 @@
 package com.pinhobrunodev.animesforum.dto.user;
 
 
-import com.pinhobrunodev.animesforum.services.validation.user.UserUpdateValid;
+import com.pinhobrunodev.animesforum.validations.user.UserUpdateValid;
 
 import javax.validation.constraints.NotBlank;
 

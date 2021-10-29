@@ -1,4 +1,4 @@
-package com.pinhobrunodev.animesforum.services.validation.user;
+package com.pinhobrunodev.animesforum.validations.user;
 
 import com.pinhobrunodev.animesforum.dto.user.UserInsertDTO;
 import com.pinhobrunodev.animesforum.entities.User;
