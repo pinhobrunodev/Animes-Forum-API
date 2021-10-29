@@ -10,6 +10,7 @@ public class InsertAnswerDTO {
     private String body;
     @NotNull(message = "Reply ID must not be empty.")
     private Long replyId;
+    private String answeredAuthor;
 
 
     public InsertAnswerDTO() {
@@ -43,5 +44,9 @@ public class InsertAnswerDTO {
 
     public void setReplyId(Long replyId) {
         this.replyId = replyId;
+    }
+
+    public InsertAnswerDTO(String answeredAuthor) {
+        this.answeredAuthor = answeredAuthor;
     }
 }

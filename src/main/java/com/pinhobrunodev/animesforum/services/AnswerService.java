@@ -37,7 +37,7 @@ public class AnswerService {
     private AuthService authService;
 
 
-    @PreAuthorize("hasAnyRole('BASIC')")
+    //@PreAuthorize("hasAnyRole('BASIC')")
     @Transactional
     public ShowAnswerDTO save(InsertAnswerDTO dto) {
         User author = authService.authenticated();
@@ -48,13 +48,13 @@ public class AnswerService {
         if (author.getMyTopics().stream().filter(x -> x.getAuthor().getId() == author.getId()).findFirst().orElse(null) == null
                 && author.hasRole("ROLE_ADMIN")) {
             repository.save(answer);
-            return new ShowAnswerDTO(answer, answer.getReplies(), author.getNickname());
+            return new ShowAnswerDTO(answer);
         }
 
         if (author.getMyTopics().stream().filter(x -> x.getAuthor().getId() == author.getId()).findFirst().orElse(null) == null
                 && author.hasRole("ROLE_MODERATOR")) {
             repository.save(answer);
-            return new ShowAnswerDTO(answer, answer.getReplies(), author.getNickname());
+            return new ShowAnswerDTO(answer);
 
         }
 
@@ -62,7 +62,7 @@ public class AnswerService {
             throw new ForbiddenException("Access Denied");
         }
         repository.save(answer);
-        return new ShowAnswerDTO(answer, answer.getReplies(), author.getNickname());
+        return new ShowAnswerDTO(answer);
     }
 
 
@@ -73,7 +73,7 @@ public class AnswerService {
             User author = authService.authenticated();
             Answer answer = mapper.updateAnswerAux(answerId, dto);
             repository.save(answer);
-            return new ShowAnswerDTO(answer, answer.getReplies(), author.getNickname());
+            return new ShowAnswerDTO(answer);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Answer Id not found : " + answerId);
         }
@@ -114,7 +114,7 @@ public class AnswerService {
     @Transactional(readOnly = true)
     public Page<ShowMyAnswersPagedDTO> ShowMyCurrentAnswers(Pageable pageable) {
         User author = authService.authenticated();
-        Page<Answer> result = repository.findByTopicAuthorBasic(author, pageable);
+        Page<Answer> result = repository.findByTopicAuthorBasic(author.getNickname(), pageable);
         return result.map(ShowMyAnswersPagedDTO::new);
     }
 
