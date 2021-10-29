@@ -1,6 +1,8 @@
 package com.pinhobrunodev.animesforum.mapper;
 
 import com.pinhobrunodev.animesforum.dto.gender.GenderDTO;
+import com.pinhobrunodev.animesforum.dto.gender.InsertGenderDTO;
+import com.pinhobrunodev.animesforum.dto.gender.UpdateGenderDTO;
 import com.pinhobrunodev.animesforum.entities.Gender;
 import com.pinhobrunodev.animesforum.repositories.GenderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +15,11 @@ public class GenderMapper {
     private GenderRepository repository;
 
 
-    public Gender copyDtoToEntity(Gender entity,GenderDTO dto){
+    public Gender copyDtoToEntity(Gender entity, InsertGenderDTO dto){
         entity.setName(dto.getName());
         return entity;
     }
-    public Gender updateGenderAux(Long id,GenderDTO dto){
+    public Gender updateGenderAux(Long id, UpdateGenderDTO dto){
         Gender gender = repository.getOne(id);
         gender.setName(dto.getName());
         return gender;

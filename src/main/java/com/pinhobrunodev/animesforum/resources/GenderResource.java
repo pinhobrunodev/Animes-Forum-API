@@ -2,6 +2,8 @@ package com.pinhobrunodev.animesforum.resources;
 
 import com.pinhobrunodev.animesforum.dto.anime.AnimeDTO;
 import com.pinhobrunodev.animesforum.dto.gender.GenderDTO;
+import com.pinhobrunodev.animesforum.dto.gender.InsertGenderDTO;
+import com.pinhobrunodev.animesforum.dto.gender.UpdateGenderDTO;
 import com.pinhobrunodev.animesforum.services.GenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -25,13 +28,13 @@ public class GenderResource {
 
 
     @PostMapping(value = "/save")
-    public ResponseEntity<GenderDTO> save(@RequestBody GenderDTO dto) {
+    public ResponseEntity<GenderDTO> save(@Valid @RequestBody InsertGenderDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(service.save(dto));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<GenderDTO> update(@PathVariable Long id, @RequestBody GenderDTO dto) {
+    public ResponseEntity<GenderDTO> update(@PathVariable Long id, @Valid @RequestBody UpdateGenderDTO dto) {
         return ResponseEntity.ok().body(service.update(id, dto));
     }
 

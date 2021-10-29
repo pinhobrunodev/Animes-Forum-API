@@ -16,6 +16,7 @@ public class AnimeRequestMapper {
     public AnimeRequest copyDtoToEntity(AnimeRequest entity, AnimeRequestDTO dto){
         entity.setStatus(AnimeRequestStatus.PENDING);
         entity.setTitle(dto.getTitle());
+        entity.setBody(dto.getBody());
         return entity;
     }
 

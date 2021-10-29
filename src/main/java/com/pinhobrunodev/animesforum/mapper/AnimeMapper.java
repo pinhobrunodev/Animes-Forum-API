@@ -1,6 +1,8 @@
 package com.pinhobrunodev.animesforum.mapper;
 
 import com.pinhobrunodev.animesforum.dto.anime.AnimeDTO;
+import com.pinhobrunodev.animesforum.dto.anime.AnimeInsertDTO;
+import com.pinhobrunodev.animesforum.dto.anime.UpdateAnimeDTO;
 import com.pinhobrunodev.animesforum.dto.gender.GenderDTO;
 import com.pinhobrunodev.animesforum.entities.Anime;
 import com.pinhobrunodev.animesforum.entities.Gender;
@@ -17,7 +19,7 @@ public class AnimeMapper {
     @Autowired
     private GenderRepository genderRepository;
 
-    public Anime copyDtoToEntity(Anime entity, AnimeDTO dto) {
+    public Anime copyDtoToEntity(Anime entity, AnimeInsertDTO dto) {
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
         entity.setImgUrl(dto.getImgUrl());
@@ -31,7 +33,7 @@ public class AnimeMapper {
     }
 
 
-    public Anime updateAnimeAux(Long id, AnimeDTO dto) {
+    public Anime updateAnimeAux(Long id, UpdateAnimeDTO dto) {
         Anime anime = repository.getOne(id);
         anime.setTitle(dto.getTitle());
         anime.setDescription(dto.getDescription());

@@ -1,8 +1,14 @@
 package com.pinhobrunodev.animesforum.dto.topic;
 
-public class UpdateTopicDTO {
+import com.pinhobrunodev.animesforum.validations.topic.TopicUpdateValid;
 
+import javax.validation.constraints.NotBlank;
+
+@TopicUpdateValid
+public class UpdateTopicDTO {
+    @NotBlank(message = "Mandatory field.")
     private String title;
+    @NotBlank(message = "Mandatory field.")
     private String body;
 
 

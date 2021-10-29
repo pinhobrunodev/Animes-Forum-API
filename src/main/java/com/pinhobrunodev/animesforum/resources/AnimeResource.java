@@ -1,6 +1,8 @@
 package com.pinhobrunodev.animesforum.resources;
 
 import com.pinhobrunodev.animesforum.dto.anime.AnimeDTO;
+import com.pinhobrunodev.animesforum.dto.anime.AnimeInsertDTO;
+import com.pinhobrunodev.animesforum.dto.anime.UpdateAnimeDTO;
 import com.pinhobrunodev.animesforum.dto.user.UserDTO;
 import com.pinhobrunodev.animesforum.dto.user.UserInsertDTO;
 import com.pinhobrunodev.animesforum.dto.user.UserPagedDTO;
@@ -16,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -27,13 +30,13 @@ public class AnimeResource {
 
 
     @PostMapping(value = "/save")
-    public ResponseEntity<AnimeDTO> save(@RequestBody AnimeDTO dto) {
+    public ResponseEntity<AnimeDTO> save(@Valid @RequestBody AnimeInsertDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(service.save(dto));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<AnimeDTO> update(@PathVariable Long id,  @RequestBody AnimeDTO dto){
+    public ResponseEntity<AnimeDTO> update(@PathVariable Long id, @Valid @RequestBody UpdateAnimeDTO dto){
         return ResponseEntity.ok().body(service.update(id,dto));
     }
 
