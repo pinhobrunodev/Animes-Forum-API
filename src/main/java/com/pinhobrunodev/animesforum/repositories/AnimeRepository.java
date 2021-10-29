@@ -10,4 +10,5 @@ public interface AnimeRepository extends JpaRepository<Anime,Long> {
 
     Page<Anime> findByGenders(Gender gender, Pageable pageable);
 
+    Anime findByTitle(String title);
 }

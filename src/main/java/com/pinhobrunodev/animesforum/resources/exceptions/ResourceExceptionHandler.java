@@ -1,9 +1,6 @@
 package com.pinhobrunodev.animesforum.resources.exceptions;
 
-import com.pinhobrunodev.animesforum.services.exceptions.DatabaseException;
-import com.pinhobrunodev.animesforum.services.exceptions.ForbiddenException;
-import com.pinhobrunodev.animesforum.services.exceptions.ResourceNotFoundException;
-import com.pinhobrunodev.animesforum.services.exceptions.UnauthorizedException;
+import com.pinhobrunodev.animesforum.services.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -37,6 +34,18 @@ public class ResourceExceptionHandler {
         error.setStatus(status.value());
         error.setMessage(e.getMessage());
         error.setError("Database Exception");
+        error.setPath(request.getRequestURI());
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(InsufficientNumberOfGenresException.class)
+    protected ResponseEntity<StandardError> database(InsufficientNumberOfGenresException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        StandardError error = new StandardError();
+        error.setMoment(Instant.now());
+        error.setStatus(status.value());
+        error.setMessage(e.getMessage());
+        error.setError("Number of Genders Exception");
         error.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(error);
     }
