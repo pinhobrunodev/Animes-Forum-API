@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -23,13 +24,13 @@ public class AnswerResource {
     private AnswerService service;
 
     @PostMapping(value = "/insert")
-    public ResponseEntity<ShowAnswerDTO> save(@RequestBody InsertAnswerDTO dto) {
+    public ResponseEntity<ShowAnswerDTO> save(@Valid @RequestBody InsertAnswerDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(service.save(dto));
     }
 
     @PatchMapping(value = "/update/{id}")
-    public ResponseEntity<ShowAnswerDTO> update(@PathVariable Long id, @RequestBody UpdateAnswerDTO dto) {
+    public ResponseEntity<ShowAnswerDTO> update(@PathVariable Long id, @Valid @RequestBody UpdateAnswerDTO dto) {
         return ResponseEntity.ok().body(service.updateAnswer(id, dto));
     }
 
