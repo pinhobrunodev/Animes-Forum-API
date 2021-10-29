@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.ServletException;
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -27,14 +28,14 @@ public class UserResource {
     private UserService service;
 
     @PostMapping(value = "/save")
-    public ResponseEntity<Void> save(  @RequestBody UserInsertDTO dto) {
+    public ResponseEntity<Void> save(@Valid @RequestBody UserInsertDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         service.save(dto);
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id,  @RequestBody UserUpdateDTO dto){
+    public ResponseEntity<Void> update(@PathVariable Long id,  @Valid @RequestBody UserUpdateDTO dto){
         service.update(id,dto);
         return ResponseEntity.ok().build();
     }

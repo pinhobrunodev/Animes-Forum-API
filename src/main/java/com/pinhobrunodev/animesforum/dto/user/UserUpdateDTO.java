@@ -1,9 +1,16 @@
 package com.pinhobrunodev.animesforum.dto.user;
 
 
+import com.pinhobrunodev.animesforum.services.validation.user.UserUpdateValid;
+
+import javax.validation.constraints.NotBlank;
+
+@UserUpdateValid
 public class UserUpdateDTO{
+
     private String firstName;
     private String lastName;
+    @NotBlank(message = "Please insert a valid nickname for update.")
     private String nickname;
 
 
