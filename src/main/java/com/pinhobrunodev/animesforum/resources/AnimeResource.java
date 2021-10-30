@@ -8,6 +8,7 @@ import com.pinhobrunodev.animesforum.dto.user.UserInsertDTO;
 import com.pinhobrunodev.animesforum.dto.user.UserPagedDTO;
 import com.pinhobrunodev.animesforum.dto.user.UserUpdateDTO;
 import com.pinhobrunodev.animesforum.services.AnimeService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,31 +29,33 @@ public class AnimeResource {
     @Autowired
     private AnimeService service;
 
-
+    @ApiOperation(value = "Salva um ANIME.")
     @PostMapping(value = "/save")
     public ResponseEntity<AnimeDTO> save(@Valid @RequestBody AnimeInsertDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(service.save(dto));
     }
 
+    @ApiOperation(value = "Atualiza um ANIME.")
     @PutMapping(value = "/{id}")
     public ResponseEntity<AnimeDTO> update(@PathVariable Long id, @Valid @RequestBody UpdateAnimeDTO dto){
         return ResponseEntity.ok().body(service.update(id,dto));
     }
 
-
+    @ApiOperation(value = "Deleta um ANIME.")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
         return  ResponseEntity.noContent().build();
     }
 
+    @ApiOperation(value = "Traz um ANIME pelo ID.")
     @GetMapping(value = "/{id}")
     public ResponseEntity<AnimeDTO> findById(@PathVariable Long id){
         return  ResponseEntity.ok().body(service.findById(id));
     }
 
-
+    @ApiOperation(value = "Lista de formaga paginada os ANIMES.")
     @GetMapping(path = "/page")
     ResponseEntity<Page<AnimeDTO>>loadAnimesPage(
             @PageableDefault(page = 0, size = 10)
