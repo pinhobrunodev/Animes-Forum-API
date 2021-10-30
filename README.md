@@ -1,3 +1,4 @@
 # Animes-Forum-API
 
-Coming soon .... :hammer:
+Este projeto representa um sistema de Fórum onde os usuários podem criar tópicos e discutir sobre seus animes preferidos !! Animes esse que já estão pré-selecionados !!!
+
