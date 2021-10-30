@@ -114,7 +114,7 @@ public class TopicService {
 
     @PreAuthorize("hasAnyRole('ADMIN','MODERATOR','BASIC')")
     @Transactional(readOnly = true)
-    public Page<ShowTopicWithRepliesAndAnswersDTO> showPagedTopicWithRepliesByTopicId(Long topicId, Pageable pageable){
+    public Page<ShowTopicWithRepliesAndAnswersDTO> ShowTopicWithRepliesAndAnswersDTO(Long topicId, Pageable pageable){
         Page<Topic> result = repository.showPagedTopicWithRepliesByTopicId(topicId,pageable);
         return result.map(x-> new ShowTopicWithRepliesAndAnswersDTO(x,x.getReplies()));
 
