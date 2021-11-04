@@ -46,7 +46,7 @@ Animes esse que já estão pré-selecionados, entretanto , existe também a poss
 
 ### 🐳 Sobre o Docker
 
-<a href="https://github.com/pinhobrunodev/Animes-Forum-API/wiki/Sobre-o-Docker-%21%21/_edit">Ir para Documentação do Docker</a>
+<a href="https://github.com/pinhobrunodev/Animes-Forum-API/wiki/Sobre-o-Docker-!!">Ir para Documentação do Docker</a>
   
 
 
