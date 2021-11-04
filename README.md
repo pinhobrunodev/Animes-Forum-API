@@ -24,6 +24,7 @@ Animes esse que já estão pré-selecionados, entretanto , existe também a poss
 
 
 
+
 ## 🛠 Tecnologias utilizadas
 
 ### 🧱 Back end
@@ -41,6 +42,15 @@ Animes esse que já estão pré-selecionados, entretanto , existe também a poss
 - Swagger
 
 #
+
+
+### 🐳 Sobre o Docker
+
+<a href="https://github.com/pinhobrunodev/Animes-Forum-API/wiki/Sobre-o-Docker-%21%21/_edit">Ir para Documentação do Docker</a>
+  
+
+
+
 
 
 ## Arquitetura das Camadas da Aplicação
