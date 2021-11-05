@@ -71,3 +71,11 @@ Animes esse que já estão pré-selecionados, entretanto , existe também a poss
 - Quantidade de vezes que o Endpoint para recusar uma solicitação de Anime deu problema. ( Id not found )
 
 ![moni](https://user-images.githubusercontent.com/60756219/139599038-37c9245d-94bd-4611-ae7a-e64f04db0237.png)
+
+
+ #
+      
+<p align="center">Made with <g-emoji class="g-emoji" alias="green_heart" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f49a.png">💚</g-emoji> by Bruno Pinho</p>
+      
+ #
+
