@@ -1,5 +1,6 @@
 package com.pinhobrunodev.animesforum.tests;
 
+import com.pinhobrunodev.animesforum.dto.anime.AnimeDTO;
 import com.pinhobrunodev.animesforum.dto.gender.GenderDTO;
 import com.pinhobrunodev.animesforum.dto.gender.UpdateGenderDTO;
 import com.pinhobrunodev.animesforum.entities.Anime;
@@ -26,5 +27,9 @@ public class Factory {
         return  anime;
     }
 
+
+    public static AnimeDTO createAnimeDTO(){
+        return new AnimeDTO(createAnime());
+    }
 
 }
