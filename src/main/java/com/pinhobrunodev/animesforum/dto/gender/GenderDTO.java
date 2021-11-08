@@ -14,6 +14,10 @@ public class GenderDTO {
 
     }
 
+    public GenderDTO(String name){
+        this.name = name;
+    }
+
     public GenderDTO(Gender entity){
         id = entity.getId();
         name = entity.getName();
