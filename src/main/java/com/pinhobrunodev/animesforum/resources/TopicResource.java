@@ -28,13 +28,14 @@ public class TopicResource {
 
     @ApiOperation(value = "Insere um Tópico.")
     @PostMapping(value = "/insert")
-    public ResponseEntity<ShowTopicCreatedDTO> save(@Valid  @RequestBody InsertTopicDTO dto) {
+    public ResponseEntity<ShowTopicCreatedDTO> save(@Valid @RequestBody InsertTopicDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(service.insertTopic(dto));
     }
+
     @ApiOperation(value = "Atualiza um Tópico.")
     @PatchMapping(value = "/update/{id}")
-    public ResponseEntity<ShowTopicCreatedDTO> save(@PathVariable Long id, @Valid  @RequestBody UpdateTopicDTO dto) {
+    public ResponseEntity<ShowTopicCreatedDTO> save(@PathVariable Long id, @Valid @RequestBody UpdateTopicDTO dto) {
         return ResponseEntity.ok().body(service.updateTopic(id, dto));
     }
 
@@ -65,11 +66,10 @@ public class TopicResource {
     @ApiOperation(value = "Lista de forma Paginada o Tópico com base no Nome que foi passado como parâmetro.")
     @GetMapping(value = "/page/filter")
     public ResponseEntity<Page<ShowTopicCreatedDTO>> pageTopicByName(
-            @PageableDefault(page = 0, size = 10)
-            @SortDefault.SortDefaults({
-                    @SortDefault(sort = "likes", direction = Sort.Direction.ASC)
-            }) @RequestParam String topicName, Pageable pageable) {
-        return ResponseEntity.ok().body(service.pageTopicByName(topicName, pageable));
+        @RequestParam(value = "title", defaultValue = "") String title,
+            @RequestParam(value = "animeId", defaultValue = "0") Long animeId,
+            Pageable pageable) {
+        return ResponseEntity.ok().body(service.pageTopicByNameOrAnimeOrBoth(animeId, title.trim(), pageable));
     }
 
 

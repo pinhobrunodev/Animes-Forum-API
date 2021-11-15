@@ -4,9 +4,13 @@ import com.pinhobrunodev.animesforum.dto.topic.InsertTopicDTO;
 import com.pinhobrunodev.animesforum.dto.topic.ShowTopicCreatedDTO;
 import com.pinhobrunodev.animesforum.dto.topic.ShowTopicWithRepliesAndAnswersDTO;
 import com.pinhobrunodev.animesforum.dto.topic.UpdateTopicDTO;
+import com.pinhobrunodev.animesforum.entities.Anime;
+import com.pinhobrunodev.animesforum.entities.Gender;
 import com.pinhobrunodev.animesforum.entities.Topic;
 import com.pinhobrunodev.animesforum.entities.User;
 import com.pinhobrunodev.animesforum.mapper.TopicMapper;
+import com.pinhobrunodev.animesforum.repositories.AnimeRepository;
+import com.pinhobrunodev.animesforum.repositories.GenderRepository;
 import com.pinhobrunodev.animesforum.repositories.TopicRepository;
 import com.pinhobrunodev.animesforum.repositories.UserRepository;
 import com.pinhobrunodev.animesforum.services.exceptions.DatabaseException;
@@ -23,6 +27,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Arrays;
+import java.util.List;
 
 
 @Service
@@ -36,6 +42,8 @@ public class TopicService {
     private AuthService authService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AnimeRepository animeRepository;
 
 
     @Transactional
@@ -103,12 +111,19 @@ public class TopicService {
         repository.save(topic);
     }
 
-    @Transactional(readOnly = true)
+   /* @Transactional(readOnly = true)
     public Page<ShowTopicCreatedDTO> pageTopicByName(String topicName,Pageable pageable){
         Page<Topic> result = repository.pageTopicByName(topicName,pageable);
         if(result.isEmpty()){
             throw  new ResourceNotFoundException("There are no Topic's relation with this name : " +topicName);
         }
+        return result.map(ShowTopicCreatedDTO::new);
+    }*/
+
+    @Transactional(readOnly = true)
+    public Page<ShowTopicCreatedDTO> pageTopicByNameOrAnimeOrBoth(Long animeId,String title,Pageable pageable){
+        List<Anime> animes  = (animeId == 0) ? null : Arrays.asList(animeRepository.getOne(animeId));
+        Page<Topic> result = repository.pageTopicByNameOrAnimeOrBoth(animes,title,pageable);
         return result.map(ShowTopicCreatedDTO::new);
     }
 
