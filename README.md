@@ -56,6 +56,8 @@ Animes esse que já estão pré-selecionados, entretanto , existe também a poss
 
 <br>
 
+Obs : Na entidade <code>Reply</code> ao invés de "int" é _"Instant"_.
+
 ![Modelagem Banco  - ANIMES FORUM](https://user-images.githubusercontent.com/60756219/142297282-e50f94b4-1cd3-4305-9be8-4c60c7fad529.png)
 
 
