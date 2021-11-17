@@ -49,7 +49,17 @@ Animes esse que já estão pré-selecionados, entretanto , existe também a poss
 <a href="https://github.com/pinhobrunodev/Animes-Forum-API/wiki/Sobre-o-Docker-%F0%9F%90%B3--!!">Ir para Documentação do Docker</a>
   
 
+#
 
+
+### 📑 Modelagem do Sistema
+
+<br>
+
+![Modelagem Banco  - ANIMES FORUM](https://user-images.githubusercontent.com/60756219/142297282-e50f94b4-1cd3-4305-9be8-4c60c7fad529.png)
+
+
+#
 
 
 
