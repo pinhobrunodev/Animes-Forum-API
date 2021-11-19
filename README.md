@@ -29,7 +29,7 @@ Animes esse que já estão pré-selecionados, entretanto , existe também a poss
 
 ### 🧱 Back end
 
-- Java
+- Java 11
 - Spring Boot
 - Spring Security
 - Spring Validation
